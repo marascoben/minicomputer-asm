@@ -20,6 +20,11 @@ public class Compiler {
 
         Token labeledToken = token.applyLabels(labelMap);
 
+        char instruction = (char) 0;
+        
+        // Apply the opcode to the instruction by left shifting it 10 bits
+        instruction |= keyword.opcode << 10;
+
         switch (keyword) {
             case AIR:
                 break;
@@ -28,6 +33,8 @@ public class Compiler {
             case AND:
                 break;
             case DATA:
+                System.out.println("DATA: " + Integer.toBinaryString(labeledToken.getData()));
+                machineCode[1] = labeledToken.getData();
                 break;
             case DVD:
                 break;

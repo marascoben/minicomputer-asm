@@ -27,8 +27,7 @@ public class Parser {
             Token token = new Token(line, lineNo);
 
             if (token.isLabel()) {
-                System.out.println(token);
-                labelMap.put(token.first(), loc);
+                labelMap.put(token.getLabel().trim(), loc);
             } else if (token.toKeyword() == Keyword.LOC) {
                 loc = (char) token.getLocation();
             } else if (!token.isComment()) {

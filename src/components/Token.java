@@ -23,8 +23,8 @@ public class Token {
 
     public Token applyLabels(Map<String, Character> labelMap) {
         for (int i = 1; i < lexemes.length; i++) {
-            if (labelMap.containsKey(lexemes[i])) {
-                lexemes[i] = String.valueOf(labelMap.get(lexemes[i]));
+            if (labelMap.containsKey(lexemes[i].trim())) {
+                lexemes[i] = Integer.toString(labelMap.get(lexemes[i]));
             }
         }
 
@@ -65,7 +65,7 @@ public class Token {
         if (lexemes[0] == null) {
             return "";
         } else {
-            return lexemes[0];
+            return lexemes[0].trim();
         }
     }
 
@@ -77,7 +77,7 @@ public class Token {
      */
     public String getLabel() {
         if (isLabel()) {
-            return lexemes[0].substring(0, lexemes[0].length() - 1);
+            return first().replace(':', ' ').trim();
         } else {
             return null;
         }
