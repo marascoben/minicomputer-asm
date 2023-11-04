@@ -1,5 +1,7 @@
 package components;
 
+import java.util.Map;
+
 public class Token {
 
     private String token;
@@ -17,6 +19,16 @@ public class Token {
         for (int i = 0; i < lexemes.length; i++) {
             lexemes[i] = lexemes[i].trim();
         }
+    }
+
+    public Token applyLabels(Map<String, Character> labelMap) {
+        for (int i = 1; i < lexemes.length; i++) {
+            if (labelMap.containsKey(lexemes[i])) {
+                lexemes[i] = String.valueOf(labelMap.get(lexemes[i]));
+            }
+        }
+
+        return this;
     }
 
     public String getToken() {
@@ -95,6 +107,19 @@ public class Token {
     public int getLocation() {
         if (lexemes.length > 1) {
             return Integer.parseInt(lexemes[1]);
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Gets the data set by DATA if the token is a DATA command.
+     * 
+     * @return The data set by DATA, or 0 if the token is not a DATA.
+     */
+    public char getData() {
+        if (lexemes.length > 1) {
+            return (char) Integer.parseInt(lexemes[1]);
         } else {
             return 0;
         }

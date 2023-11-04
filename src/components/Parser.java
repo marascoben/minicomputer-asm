@@ -44,14 +44,6 @@ public class Parser {
         return labelMap;
     }
 
-    /**
-     * Tokenizes a line of assembly code into the individual components
-     * 
-     * @param line The line of assembly code to tokenize
-     * @return An array of tokens
-     */
-    public String[] tokenize(String line) {
-        return line.trim().split("[\\s,]+");
-    }
+
 
 }

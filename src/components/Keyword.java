@@ -27,5 +27,5 @@ public enum Keyword {
     AND,    // Logical AND of register and register
     ORR,    // Logical OR of register and register
     NOT,    // Logical NOT of register and register
-    TRP     // Trap
+    TRP;    // Trap
 }

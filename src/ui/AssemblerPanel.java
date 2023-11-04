@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -62,7 +63,11 @@ public class AssemblerPanel extends JFrame {
         // Setup assemble button
         assembleButton = new JButton("Assemble");
         assembleButton.addActionListener(e -> {
-            assembler.Assemble(new File(inputField.getText()));
+            try {
+                assembler.run(new File(inputField.getText()), new File(inputField.getText() + ".txt"));
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         JPanel panel = new JPanel();
