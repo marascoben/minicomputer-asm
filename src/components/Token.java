@@ -31,7 +31,7 @@ public class Token {
         return this;
     }
 
-    public Token removeLabel(){
+    public Token removeLabel() {
         String[] newLexemes = new String[lexemes.length - 1];
         for (int i = 1; i < lexemes.length; i++) {
             newLexemes[i - 1] = lexemes[i];
@@ -46,6 +46,21 @@ public class Token {
 
     public int getLineNo() {
         return lineNo;
+    }
+
+    /**
+     * Fetch the specified lexeme from the token.
+     * 
+     * @param index The index of the lexeme to fetch
+     * @return The lexeme at the specified index, or null if the index is out of
+     *         bounds
+     */
+    public String getLexeme(int index) {
+        if (index < lexemes.length) {
+            return lexemes[index];
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -155,7 +170,7 @@ public class Token {
         }
     }
 
-    public char getAddress(){
+    public char getAddress() {
         if (lexemes.length > 3) {
             return (char) Integer.parseInt(lexemes[3]);
         } else {

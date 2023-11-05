@@ -22,7 +22,7 @@ public class Compiler {
         System.out.println(labeledToken);
 
         char instruction = (char) 0;
-        
+
         // Apply the opcode to the instruction by left shifting it 10 bits
         instruction |= keyword.opcode << 10;
         machineCode[1] = instruction;
@@ -33,12 +33,22 @@ public class Compiler {
             case AMR:
                 break;
             case AND:
+                // Apply two registers to the instruction specified in lexemes 1 and 2
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 7;
+
+                machineCode[1] = instruction;
                 break;
             case DATA:
                 System.out.println(Integer.toString(labeledToken.getData()));
                 machineCode[1] = labeledToken.getData();
                 break;
             case DVD:
+                // Apply two registers to the instruction specified in lexemes 1 and 2
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 7;
+
+                machineCode[1] = instruction;
                 break;
             case HLT:
                 machineCode[1] = instruction;
@@ -62,9 +72,10 @@ public class Compiler {
                 instruction |= labeledToken.getRegister() << 8;
                 instruction |= labeledToken.getIndexRegister() << 7;
                 instruction |= 1 << 5;
-                
+
                 // APPLY ONLY 6 BITS FROM THE ADDRESS
                 instruction |= labeledToken.getAddress() & 0b111111;
+
                 machineCode[1] = instruction;
                 break;
             case LDX:
@@ -72,10 +83,25 @@ public class Compiler {
             case LOC:
                 break;
             case MLT:
+                // Apply two registers to the instruction specified in lexemes 1 and 2
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 7;
+
+                machineCode[1] = instruction;
                 break;
             case NOT:
+                // Apply two registers to the instruction specified in lexemes 1 and 2
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 7;
+
+                machineCode[1] = instruction;
                 break;
             case ORR:
+                // Apply two registers to the instruction specified in lexemes 1 and 2
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 7;
+
+                machineCode[1] = instruction;
                 break;
             case RFS:
                 break;
@@ -92,13 +118,17 @@ public class Compiler {
             case TRP:
                 break;
             case TRR:
+                // Apply two registers to the instruction specified in lexemes 1 and 2
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 7;
                 break;
             default:
                 break;
 
         }
 
-        System.out.println("Instruction: " + String.format("%16s", Integer.toBinaryString(instruction)).replace(" ", "0"));
+        System.out.println(
+                "Instruction: " + String.format("%16s", Integer.toBinaryString(instruction)).replace(" ", "0"));
 
         return machineCode;
     }
