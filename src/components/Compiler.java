@@ -35,7 +35,7 @@ public class Compiler {
             case AND:
                 // Apply two registers to the instruction specified in lexemes 1 and 2
                 instruction |= labeledToken.getRegister() << 8;
-                instruction |= labeledToken.getIndexRegister() << 7;
+                instruction |= labeledToken.getIndexRegister() << 6;
 
                 machineCode[1] = instruction;
                 break;
@@ -46,7 +46,7 @@ public class Compiler {
             case DVD:
                 // Apply two registers to the instruction specified in lexemes 1 and 2
                 instruction |= labeledToken.getRegister() << 8;
-                instruction |= labeledToken.getIndexRegister() << 7;
+                instruction |= labeledToken.getIndexRegister() << 6;
 
                 machineCode[1] = instruction;
                 break;
@@ -66,40 +66,58 @@ public class Compiler {
             case JZ:
                 break;
             case LDA:
+                // Apply register, index register, indirect bit, and address to the instruction
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 6;
+                instruction |= 1 << 5;
+
+                // APPLY ONLY 5 BITS FROM THE ADDRESS
+                instruction |= labeledToken.getAddress() & 0b11111;
+
+                machineCode[1] = instruction;
                 break;
             case LDR:
                 // Apply register, index register, indirect bit, and address to the instruction
                 instruction |= labeledToken.getRegister() << 8;
-                instruction |= labeledToken.getIndexRegister() << 7;
+                instruction |= labeledToken.getIndexRegister() << 6;
                 instruction |= 1 << 5;
 
-                // APPLY ONLY 6 BITS FROM THE ADDRESS
-                instruction |= labeledToken.getAddress() & 0b111111;
+                // APPLY ONLY 5 BITS FROM THE ADDRESS
+                instruction |= labeledToken.getAddress() & 0b11111;
 
                 machineCode[1] = instruction;
                 break;
             case LDX:
+                // Apply index register, indirect bit, and address to the instruction, taking only 
+                // two bits from the index register
+                instruction |= labeledToken.getIndexRegister() << 6;
+                instruction |= 1 << 5;
+
+                // APPLY ONLY 5 BITS FROM THE ADDRESS
+                instruction |= labeledToken.getAddress() & 0b11111;
+
+                machineCode[1] = instruction;
                 break;
             case LOC:
                 break;
             case MLT:
                 // Apply two registers to the instruction specified in lexemes 1 and 2
                 instruction |= labeledToken.getRegister() << 8;
-                instruction |= labeledToken.getIndexRegister() << 7;
+                instruction |= labeledToken.getIndexRegister() << 6;
 
                 machineCode[1] = instruction;
                 break;
             case NOT:
                 // Apply two registers to the instruction specified in lexemes 1 and 2
                 instruction |= labeledToken.getRegister() << 8;
-                instruction |= labeledToken.getIndexRegister() << 7;
+                instruction |= labeledToken.getIndexRegister() << 6;
 
                 machineCode[1] = instruction;
                 break;
             case ORR:
                 // Apply two registers to the instruction specified in lexemes 1 and 2
                 instruction |= labeledToken.getRegister() << 8;
-                instruction |= labeledToken.getIndexRegister() << 7;
+                instruction |= labeledToken.getIndexRegister() << 6;
 
                 machineCode[1] = instruction;
                 break;
@@ -112,6 +130,15 @@ public class Compiler {
             case SOB:
                 break;
             case STR:
+                // Apply register, index register, indirect bit, and address to the instruction
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 6;
+                instruction |= 1 << 5;
+
+                // APPLY ONLY 5 BITS FROM THE ADDRESS
+                instruction |= labeledToken.getAddress() & 0b11111;
+
+                machineCode[1] = instruction;
                 break;
             case STX:
                 break;
@@ -120,7 +147,7 @@ public class Compiler {
             case TRR:
                 // Apply two registers to the instruction specified in lexemes 1 and 2
                 instruction |= labeledToken.getRegister() << 8;
-                instruction |= labeledToken.getIndexRegister() << 7;
+                instruction |= labeledToken.getIndexRegister() << 6;
                 break;
             default:
                 break;
