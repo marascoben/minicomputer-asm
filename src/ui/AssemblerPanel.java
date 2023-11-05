@@ -65,6 +65,8 @@ public class AssemblerPanel extends JFrame {
         assembleButton.addActionListener(e -> {
             try {
                 assembler.run(new File(inputField.getText()), new File(inputField.getText() + ".txt"));
+                JOptionPane.showMessageDialog(this, "Assembled successfully!", "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
