@@ -19,6 +19,7 @@ public class Compiler {
         machineCode[0] = location;
 
         Token labeledToken = token.applyLabels(labelMap);
+        System.out.println(labeledToken);
 
         char instruction = (char) 0;
         
@@ -33,12 +34,13 @@ public class Compiler {
             case AND:
                 break;
             case DATA:
-                System.out.println("DATA: " + Integer.toBinaryString(labeledToken.getData()));
+                System.out.println(Integer.toString(labeledToken.getData()));
                 machineCode[1] = labeledToken.getData();
                 break;
             case DVD:
                 break;
             case HLT:
+                machineCode[1] = instruction;
                 break;
             case JCC:
                 break;
@@ -55,6 +57,14 @@ public class Compiler {
             case LDA:
                 break;
             case LDR:
+                // Apply register, index register, indirect bit, and address to the instruction
+                instruction |= labeledToken.getRegister() << 8;
+                instruction |= labeledToken.getIndexRegister() << 7;
+                instruction |= 1 << 5;
+                
+                // APPLY ONLY 6 BITS FROM THE ADDRESS
+                instruction |= labeledToken.getAddress() & 0b111111;
+                machineCode[1] = instruction;
                 break;
             case LDX:
                 break;
@@ -86,6 +96,8 @@ public class Compiler {
                 break;
 
         }
+
+        System.out.println("Instruction: " + String.format("%16s", Integer.toBinaryString(instruction)).replace(" ", "0"));
 
         return machineCode;
     }

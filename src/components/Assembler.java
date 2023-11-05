@@ -26,10 +26,15 @@ public class Assembler {
         for (int lineNo = 1; line != null; lineNo++) {
             Token token = new Token(line, lineNo);
 
-            // Do nothing if the line is a comment or a label
-            if (token.isLabel() || token.isComment()) {
+            // Do nothing if the line is a comment
+            if (token.isComment()) {
                 line = reader.readLine();
                 continue;
+            }
+
+            // If token is a label, remove it from the token
+            if (token.isLabel()) {
+                token = token.removeLabel();
             }
 
             // Set the location if the line is a location directive

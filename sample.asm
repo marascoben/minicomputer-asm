@@ -4,6 +4,6 @@
         DATA    3
         DATA    End
         ; This is a comment!
-        LDX     2,11
+        LDR     3,0,11
         LOC     1024
 End:    HLT

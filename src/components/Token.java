@@ -31,6 +31,15 @@ public class Token {
         return this;
     }
 
+    public Token removeLabel(){
+        String[] newLexemes = new String[lexemes.length - 1];
+        for (int i = 1; i < lexemes.length; i++) {
+            newLexemes[i - 1] = lexemes[i];
+        }
+        lexemes = newLexemes;
+        return this;
+    }
+
     public String getToken() {
         return token;
     }
@@ -120,6 +129,35 @@ public class Token {
     public char getData() {
         if (lexemes.length > 1) {
             return (char) Integer.parseInt(lexemes[1]);
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Gets the register set by LDR if the token is a LDR command.
+     * 
+     * @return
+     */
+    public byte getRegister() {
+        if (lexemes.length > 1) {
+            return (byte) Integer.parseInt(lexemes[1]);
+        } else {
+            return 0;
+        }
+    }
+
+    public byte getIndexRegister() {
+        if (lexemes.length > 2) {
+            return (byte) Integer.parseInt(lexemes[2]);
+        } else {
+            return 0;
+        }
+    }
+
+    public char getAddress(){
+        if (lexemes.length > 3) {
+            return (char) Integer.parseInt(lexemes[3]);
         } else {
             return 0;
         }
