@@ -25,6 +25,7 @@ public class Compiler {
         
         // Apply the opcode to the instruction by left shifting it 10 bits
         instruction |= keyword.opcode << 10;
+        machineCode[1] = instruction;
 
         switch (keyword) {
             case AIR:
