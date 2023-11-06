@@ -1,0 +1,3 @@
+[submodule "minicomputer"]
+	path = minicomputer
+	url = https://github.com/marascoben/minicomputer

@@ -4,7 +4,7 @@ JARFLAGS = cfe
 
 BINDIR = bin
 
-JARFILE = Simple.jar
+JARFILE = minicomputer-asm.jar
 
 # Java source files
 SOURCES = src/ui/AssemblerPanel.java \
